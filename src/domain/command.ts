@@ -20,6 +20,8 @@ export interface GluegunCommand<TContext extends Toolbox = Toolbox> {
   file?: string
   /** A reference to the plugin that contains this command. */
   plugin?: Plugin
+
+  flags?: object
 }
 
 /**
@@ -35,6 +37,8 @@ export class Command implements GluegunCommand<Toolbox> {
   public alias
   public dashed
   public plugin
+  public type
+  public flags
 
   constructor() {
     this.name = null
@@ -46,6 +50,8 @@ export class Command implements GluegunCommand<Toolbox> {
     this.alias = []
     this.dashed = false
     this.plugin = null
+    this.type = null
+    this.flags = null
   }
 
   /**

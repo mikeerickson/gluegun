@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "2.0.7",
+  "version": "2.0.7-dev.1",
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "infinitered/gluegun",
   "bin": {
@@ -18,6 +18,7 @@
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn create-direct && yarn clean-types && echo 'Run yarn clean-build to remove build artifacts.'",
     "lint": "tslint -p .",
     "integration": "yarn build && jest --config=./.circleci/jest-integration.config.json",
+    "dev": "node bin/gluegun",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",

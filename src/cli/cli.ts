@@ -9,7 +9,7 @@ export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
     .src(__dirname)
     .help()
     .version()
-    .exclude(['semver', 'prompt', 'http', 'patching'])
+    .exclude(['semver', 'http', 'patching'])
     .create()
 
   // and run it

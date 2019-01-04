@@ -1,6 +1,6 @@
 import * as CLITable from 'cli-table3'
 import * as importedColors from 'colors'
-import { commandInfo } from './meta-tools'
+import { commandInfo, optionInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
 import { times } from './utils'
 import { GluegunPrint, GluegunPrintColors } from './print-types'
@@ -202,9 +202,25 @@ function spin(config?: string | object): any {
  * @param commandRoot Optional, only show commands with this root
  */
 function printCommands(toolbox: Toolbox, commandRoot?: string[]): void {
-  const data = commandInfo(toolbox, commandRoot)
+  let data = commandInfo(toolbox, commandRoot)
+  data = data.filter(row => {
+    return row.length > 0
+  })
+  table(data) // the data
+}
 
-  newline() // a spacer
+/**
+ * Prints the list of options (works globally).
+ *
+ * @param toolbox The toolbox that was used
+ * @param commandRoot Optional, only show commands with this root
+ */
+function printOptions(toolbox: Toolbox, commandRoot?: string[]): void {
+  let data = optionInfo(toolbox, commandRoot)
+
+  data = data.filter(row => {
+    return row.length > 0
+  })
   table(data) // the data
 }
 
@@ -212,8 +228,17 @@ function printHelp(toolbox: Toolbox): void {
   const {
     runtime: { brand },
   } = toolbox
-  info(`${brand} version ${toolbox.meta.version()}`)
+  newline()
+  info(colors.cyan(`${brand} version ${toolbox.meta.version()}`))
+  warning(`${toolbox.meta.description()}`)
+
+  newline() // a spacer
+  warning(colors.bold('Commands:'))
   printCommands(toolbox)
+  newline()
+  warning(colors.bold('Options:'))
+  printOptions(toolbox)
+  newline()
 }
 
 const checkmark = colors.success('✔︎')
